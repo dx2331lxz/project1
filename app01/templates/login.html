@@ -1,0 +1,39 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>后台管理系统</title>
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+</head>
+
+<body>
+{#	<div class="logo_box"><img class="logo_img" src="{% static 'images/touxiang.png' %}"></div>#}
+{% block content %}
+    <form action="/login/" method="post" novalidate>
+        {% csrf_token %}
+        <div class="login_box">
+            <h1>登陆</h1>
+            {{ form.name }}{{ form.name.errors.0 }}
+            {{ form.password }}{{ form.password.errors.0 }}
+            {{ form.code }}{{ form.code.errors.0 }}
+            {#    <input class="input_box" type="text" name="username" placeholder="用户名">#}
+            {#    <input class="input_box" type="password" name="password" placeholder="密码">#}
+
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-xs-5">
+                        <img id="image_code" src="/image/code/">
+                    </div>
+                </div>
+            </div>
+            <input type="submit" class="button_box" value="登陆">
+            <div style="height: 25px;"></div>
+            <a href="/email/password/">忘记密码</a>//邮箱找回
+            <a href="/register/">注册</a>
+
+        </div>
+    </form>
+{% endblock %}
+</body>
+</html>

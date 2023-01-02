@@ -1,0 +1,17 @@
+{% extends "login.html" %}
+
+{% block content %}
+    <form action="/register/" method="post" novalidate>
+        {% csrf_token %}
+        <div class="login_box">
+            <h1>欢迎注册</h1>
+                    {{ error }}
+            {% for field in form %}
+                {{ field }}{{ field.errors.0 }}
+            {% endfor %}
+            <input type="submit" class="button_box" value="注册">
+
+        </div>
+    </form>
+
+{% endblock %}

@@ -1,0 +1,121 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+{#<link rel="stylesheet" href="{% static 'css/discuss.css' %}">#}
+<link rel="stylesheet" href="{% static 'css/comment.css' %}">
+<script src="/static/ckeditor/ckeditor/ckeditor-init.js"></script>
+<script src="/static/ckeditor/ckeditor/ckeditor/ckeditor.js"></script>
+
+<link rel="stylesheet" href="{% static '/css/show_box.css' %}">
+
+<div style="text-align: center">
+    {% for obj in data_box %}
+        <h3>姓名：{{ obj.name }}</h3>
+        <h3>年龄：{{ obj.age }}</h3>
+        <h3>个人介绍：{{ obj.hobby }}</h3>
+        <h3>联系方式：{{ obj.call }}</h3>
+        <h3>所在学校： {{ obj.school }}</h3>
+        <h3>个人简介： {{ obj.content | safe }}</h3>
+    {% endfor %}
+</div>
+{#{% for obj in content %}#}
+{#    <div class="comment-wrap">#}
+{#        <div class="comment-block">#}
+{#            <p class="comment-text">{{ obj.content | safe }}</p>#}
+{#            <div class="bottom-comment">#}
+{#                <ul class="comment-actions">#}
+{#                    <li class="text"></li>#}
+{#                    <li class="reply">Reply</li>#}
+{#                </ul>#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
+{#{% endfor %}#}
+{% if comment_id == 0 %}
+    <div style="text-align: center">
+        <form method="post" action="?content_id={{ comment_id }}">
+            {% csrf_token %}
+            {{ form.content }}
+            <div style="text-align: center">
+                <input type="submit" value="提交评论" style="text-align: center">
+            </div>
+        </form>
+    </div>
+{% endif %}
+<!-- Contenedor Principal -->
+{% for obj in content %}
+    <div class="comments-container">
+        <ul id="comments-list" class="comments-list">
+            <li>
+                <div class="comment-main-level">
+                    <!-- Avatar -->
+                    {% for foo in avatar %}
+                        {% if obj.commenter == foo.user %}
+                            <div class="comment-avatar"><img src="/media/{{ foo.picture }}" alt="">
+                        {% endif %}
+                    {% endfor %}
+                    </div>
+                    <!-- Contenedor del Comentario -->
+                    <div class="comment-box">
+                        <div class="comment-head">
+                            <h6 class="comment-name by-author"><a href="/personal_page/">{{ obj.commenter.name }}</a>
+                            </h6>
+                            {#                            <span>hace 20 minutos</span>#}
+                            <i class="fa fa-reply"></i>
+                            <i class="fa fa-heart"></i>
+                        </div>
+                        <div class="comment-content">
+                            {{ obj.content | safe }}
+                            <div class="bottom-comment">
+                                <ul class="comment-actions">
+                                    <a href="?comment_id={{ obj.id }}">Reply</a>
+                                </ul>
+                            </div>
+                        </div>
+                        {% if comment_id == obj.id %}
+                            <div style="text-align: center">
+                                <form method="post" action="?content_id={{ obj.id }}">
+                                    {% csrf_token %}
+                                    {{ form.as_p }}
+                                    <div style="text-align: center">
+                                        <input type="submit" value="提交评论" style="text-align: center">
+                                    </div>
+                                </form>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+                <!-- Respuestas de los comentarios -->
+                {% for foo in content_reply %}
+                    {% if foo.reply_user.id == obj.id %}
+                        <ul class="comments-list reply-list">
+                            <li>
+                                <!-- Avatar -->
+                                {% for i in avatar %}
+                                    {% if foo.user == i.user%}
+                                        <div class="comment-avatar"><img src="/media/{{ i.picture }}" alt="">
+                                    {% endif %}
+                                {% endfor %}
+                                </div>
+                                <!-- Contenedor del Comentario -->
+                                <div class="comment-box">
+                                    <div class="comment-head">
+                                        <h6 class="comment-name"><a href="/personal_page/">{{ foo.user.name }}</a></h6>
+                                        {#                                        <span>hace 10 minutos</span>#}
+                                        <i class="fa fa-reply"></i>
+                                        <i class="fa fa-heart"></i>
+                                    </div>
+                                    <div class="comment-content">
+                                        {{ foo.content | safe }}
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    {% endif %}
+                {% endfor %}
+            </li>
+        </ul>
+    </div>
+{% endfor %}
+
+
+

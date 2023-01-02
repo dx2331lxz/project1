@@ -1,0 +1,67 @@
+{% extends 'mainpage.html' %}
+{% block title %}
+    <title>收藏夹</title>
+{% endblock %}
+<table class="table">
+    <thead>
+    <tr>
+        <th><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>男生盲盒</th>
+        <th>姓名</th>
+        <th>年龄</th>
+        <th>盲盒标题</th>
+        <th>学校</th>
+        <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% block context_man %}
+        {% for obj in data_list_man %}
+            <tr>
+                <th><span class="glyphicon glyphicon-heart" aria-hidden="true" style="color: red"></span></th>
+                <td>{{ obj.name }}</td>
+                <td>{{ obj.age }}</td>
+                <td>{{ obj.title }}</td>
+                <td>{{ obj.school }}</td>
+                <td>
+                    <a class="btn btn-primary"
+                       href="/box_delete/{{ obj.id }}/">删除盲盒</a>
+                    <a class="btn btn-primary"
+                       href="/show_box/{{ obj.id }}/">查看详情</a>
+                </td>
+            </tr>
+        {% endfor %}
+    {% endblock %}
+    </tbody>
+</table>
+<table class="table">
+    <thead>
+    <tr>
+        <th><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>女生盲盒</th>
+        <th>姓名</th>
+        <th>年龄</th>
+        <th>盲盒标题</th>
+        <th>学校</th>
+        <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% block context_woman %}
+
+        {% for obj in data_list_woman %}
+            <tr>
+                <th><span class="glyphicon glyphicon-heart" aria-hidden="true" style="color: red"></span></th>
+                <td>{{ obj.name }}</td>
+                <td>{{ obj.age }}</td>
+                <td>{{ obj.title }}</td>
+                <td>{{ obj.school }}</td>
+                <td>
+                    <a class="btn btn-primary"
+                       href="/box_delete/{{ obj.id }}/">删除盲盒</a>
+                    <a class="btn btn-primary"
+                       href="/show_box/{{ obj.id }}/">查看详情</a>
+                </td>
+            </tr>
+        {% endfor %}
+    {% endblock %}
+    </tbody>
+</table>
