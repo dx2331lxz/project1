@@ -80,9 +80,9 @@ WSGI_APPLICATION = 'project1.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'dx_db2',
-        'USER': 'dx2331lxz',
-        'PASSWORD': '1314521',
+        'NAME': '#',
+        'USER': '#',
+        'PASSWORD': '#',
         'HOST': '127.0.0.1',
         'PORT': 3306,
     }
@@ -139,8 +139,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # 邮箱
 EMAIL_HOST = 'smtp.qq.com'
 EMAIL_PORT = '465'
-EMAIL_HOST_USER = '3434055686@qq.com'
-EMAIL_HOST_PASSWORD = 'mdlguhhjeiulcjbh'
+EMAIL_HOST_USER = '#'
+EMAIL_HOST_PASSWORD = '#'
 EMAIL_USE_SSL = True
 
 # ckeditor
